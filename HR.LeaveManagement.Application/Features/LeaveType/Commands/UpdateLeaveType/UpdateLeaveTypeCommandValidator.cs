@@ -31,7 +31,7 @@ namespace HR.LeaveManagement.Application.Features.LeaveType.Commands.UpdateLeave
 
         private Task<bool> LeaveTypeNameUnique(UpdateLeaveTypeCommand command, CancellationToken token)
         {
-            return _leaveTypeRepository.IsLeaveTypeUnique(command.Name);
+            return _leaveTypeRepository.IsLeaveTypeUniqueAsync(command.Name);
         }
     }
 }
