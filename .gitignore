@@ -416,3 +416,4 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+HR.LeaveManagement.Api/API/appsettings.Production.json
