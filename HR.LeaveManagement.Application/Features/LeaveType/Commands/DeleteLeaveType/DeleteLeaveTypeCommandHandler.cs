@@ -2,15 +2,20 @@
 using HR.LeaveManagement.Application.Contracts.Persistence;
 using HR.LeaveManagement.Application.Exceptions;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace HR.LeaveManagement.Application.Features.LeaveType.Commands.DeleteLeaveType
 {
     public class DeleteLeaveTypeCommandHandler : IRequestHandler<DeleteLeaveTypeCommand, Unit>
     {
         private readonly ILeaveTypeRepository _leaveTypeRepository;
+        private readonly ILogger<DeleteLeaveTypeCommandHandler> _logger;
 
-        public DeleteLeaveTypeCommandHandler(ILeaveTypeRepository leaveTypeRepository) =>
+        public DeleteLeaveTypeCommandHandler(ILeaveTypeRepository leaveTypeRepository, ILogger<DeleteLeaveTypeCommandHandler> logger)
+        {
             _leaveTypeRepository = leaveTypeRepository;
+            _logger = logger;
+        }
 
         public async Task<Unit> Handle(DeleteLeaveTypeCommand request, CancellationToken cancellationToken)
         {
@@ -20,6 +25,7 @@ namespace HR.LeaveManagement.Application.Features.LeaveType.Commands.DeleteLeave
             // verify that record exists
             if (leaveTypeToDelete is null)
             {
+                _logger.LogWarning("No record found in delete request for {0}", request.Id);
                 throw new NotFoundException(nameof(LeaveType), request.Id);
             }
             

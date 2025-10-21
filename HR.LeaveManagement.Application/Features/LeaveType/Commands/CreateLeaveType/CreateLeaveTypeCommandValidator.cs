@@ -23,13 +23,13 @@ public class CreateLeaveTypeCommandValidator : AbstractValidator<CreateLeaveType
             .WithMessage("{PropertyName} cannot be less than 1");
 
         RuleFor(q => q)
-            .MustAsync(LeaveTypeNameUnique)
+            .MustAsync(LeaveTypeNameUniqueAsync)
             .WithMessage("Leave type already exists");
 
         _leaveTypeRepository = leaveTypeRepository;
     }
 
-    private Task<bool> LeaveTypeNameUnique(CreateLeaveTypeCommand command, CancellationToken token)
+    private Task<bool> LeaveTypeNameUniqueAsync(CreateLeaveTypeCommand command, CancellationToken token)
     {
         return _leaveTypeRepository.IsLeaveTypeUniqueAsync(command.Name);
     }
