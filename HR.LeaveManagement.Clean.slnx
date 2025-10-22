@@ -1,16 +1,19 @@
 <Solution>
   <Folder Name="/src/" />
   <Folder Name="/src/API/">
-    <Project Path="HR.LeaveManagement.Api/HR.LeaveManagement.Api.csproj" Id="d076253c-eae2-41db-952b-5e5166a484d5" />
+    <Project Path="HR.LeaveManagement.Api/HR.LeaveManagement.Api.csproj" />
   </Folder>
   <Folder Name="/src/Core/">
-    <Project Path="HR.LeaveManagement.Application/HR.LeaveManagement.Application.csproj" Id="4f8be912-1bd6-47fe-98c2-946b557489ff" />
-    <Project Path="HR.LeaveManagement.Domain/HR.LeaveManagement.Domain.csproj" Id="24904ca7-09ff-4f7f-8f2c-d781e2d7c1cc" />
+    <Project Path="HR.LeaveManagement.Application/HR.LeaveManagement.Application.csproj" />
+    <Project Path="HR.LeaveManagement.Domain/HR.LeaveManagement.Domain.csproj" />
   </Folder>
   <Folder Name="/src/Infrastructure/">
-    <Project Path="HR.LeaveManagement.Infrastructure/HR.LeaveManagement.Infrastructure.csproj" Id="da529f9f-fa21-4316-9218-8f7198c40065" />
-    <Project Path="HR.LeaveManagement.Persistence/HR.LeaveManagement.Persistence.csproj" Id="9a01ebd4-2ba8-4db2-b148-a2d3eae4c8c2" />
+    <Project Path="HR.LeaveManagement.Infrastructure/HR.LeaveManagement.Infrastructure.csproj" />
+    <Project Path="HR.LeaveManagement.Persistence/HR.LeaveManagement.Persistence.csproj" />
   </Folder>
   <Folder Name="/src/UI/" />
-  <Folder Name="/test/" />
+  <Folder Name="/test/">
+    <Project Path="HR.LeaveManagement.Application.UnitTests\HR.LeaveManagement.Application.UnitTests.csproj" Type="Classic C#" />
+    <Project Path="HR.LeaveManagement.Persistence.IntegrationTests\HR.LeaveManagement.Persistence.IntegrationTests.csproj" Type="Classic C#" />
+  </Folder>
 </Solution>
