@@ -11,7 +11,7 @@ namespace HR.LeaveManagement.Persistence.Repositories
         {
         }
 
-        public async Task<LeaveAllocation> GetLeaveAllocationDetailsAsync(int id)
+        public async Task<LeaveAllocation> GetLeaveAllocationWithDetailsAsync(int id)
         {
             var leaveAllocation = await _context.LeaveAllocations
                 .Include(q => q.LeaveType)
