@@ -11,9 +11,11 @@
     <Project Path="HR.LeaveManagement.Infrastructure/HR.LeaveManagement.Infrastructure.csproj" />
     <Project Path="HR.LeaveManagement.Persistence/HR.LeaveManagement.Persistence.csproj" />
   </Folder>
-  <Folder Name="/src/UI/" />
+  <Folder Name="/src/UI/">
+    <Project Path="HR.LeaveManagement.BlazorUI/HR.LeaveManagement.BlazorUI.csproj" Id="22e8bf3b-6256-4e96-80da-660270ede227" />
+  </Folder>
   <Folder Name="/test/">
-    <Project Path="HR.LeaveManagement.Application.UnitTests\HR.LeaveManagement.Application.UnitTests.csproj" Type="Classic C#" />
-    <Project Path="HR.LeaveManagement.Persistence.IntegrationTests\HR.LeaveManagement.Persistence.IntegrationTests.csproj" Type="Classic C#" />
+    <Project Path="HR.LeaveManagement.Application.UnitTests\HR.LeaveManagement.Application.UnitTests.csproj" />
+    <Project Path="HR.LeaveManagement.Persistence.IntegrationTests\HR.LeaveManagement.Persistence.IntegrationTests.csproj" />
   </Folder>
 </Solution>
