@@ -33,7 +33,8 @@ namespace HR.LeaveManagement.BlazorUI.Services
 
                 await _localStorageService.SetItemAsync("token", authResponse.Token);
                 // set claims in Blazor and login state
-
+                await ((ApiAuthenticationStateProvider)_authenticationStateProvider).LoggedIn();
+                
                 return true;
 
             }
@@ -69,8 +70,5 @@ namespace HR.LeaveManagement.BlazorUI.Services
             // remove claims in Blazor and invalidate login state
             await ((ApiAuthenticationStateProvider)_authenticationStateProvider).LoggedOut();
         }
-
-
-
     }
 }
