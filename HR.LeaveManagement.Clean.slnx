@@ -8,6 +8,7 @@
     <Project Path="HR.LeaveManagement.Domain/HR.LeaveManagement.Domain.csproj" />
   </Folder>
   <Folder Name="/src/Infrastructure/">
+    <Project Path="HR.LeaveManagement.Identity/HR.LeaveManagement.Identity.csproj" Id="14451c39-0ca4-41fb-847a-50dcd5f5bb24" />
     <Project Path="HR.LeaveManagement.Infrastructure/HR.LeaveManagement.Infrastructure.csproj" />
     <Project Path="HR.LeaveManagement.Persistence/HR.LeaveManagement.Persistence.csproj" />
   </Folder>

@@ -34,6 +34,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("all");
 
 // Redirect root URL to Swagger UI
 app.MapGet("/", () => Results.Redirect("/swagger")).ExcludeFromDescription();
