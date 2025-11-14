@@ -10,8 +10,8 @@ namespace HR.LeaveManagement.BlazorUI.Services
     {
         private readonly AuthenticationStateProvider _authenticationStateProvider;
         public AuthenticationService(IClient client,
-            ILocalStorageService localStorage,
-            AuthenticationStateProvider authenticationStateProvider) : base(client, localStorage)
+            ILocalStorageService localStorageService,
+            AuthenticationStateProvider authenticationStateProvider) : base(client, localStorageService)
         {
             _authenticationStateProvider = authenticationStateProvider;
         }

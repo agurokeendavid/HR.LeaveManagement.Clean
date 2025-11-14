@@ -6,11 +6,11 @@ namespace HR.LeaveManagement.BlazorUI.Services.Base;
 public class BaseHttpService
 {
     protected IClient _client;
-    protected readonly ILocalStorageService _localStorage;
-    public BaseHttpService(IClient client, ILocalStorageService localStorage)
+    protected readonly ILocalStorageService _localStorageService;
+    public BaseHttpService(IClient client, ILocalStorageService localStorageService)
     {
         _client = client;
-        _localStorage = localStorage;
+        _localStorageService = localStorageService;
     }
 
     protected Response<Guid> ConvertApiExceptions<Guid>(ApiException ex)
@@ -30,8 +30,8 @@ public class BaseHttpService
 
     protected async Task AddBearerTokenAsync()
     {
-        if (await _localStorage.ContainKeyAsync("token"))
+        if (await _localStorageService.ContainKeyAsync("token"))
             _client.HttpClient.DefaultRequestHeaders.Authorization =
-                new AuthenticationHeaderValue("Bearer", await _localStorage.GetItemAsync<string>("token"));
+                new AuthenticationHeaderValue("Bearer", await _localStorageService.GetItemAsync<string>("token"));
     }
 }
