@@ -2218,6 +2218,12 @@ namespace HR.LeaveManagement.BlazorUI.Services.Base
     public partial class LeaveRequestDetailsDto
     {
 
+        [System.Text.Json.Serialization.JsonPropertyName("id")]
+        public int Id { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("employee")]
+        public Employee Employee { get; set; }
+
         [System.Text.Json.Serialization.JsonPropertyName("startDate")]
         public System.DateTimeOffset StartDate { get; set; }
 
