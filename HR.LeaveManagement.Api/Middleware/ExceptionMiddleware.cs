@@ -1,70 +1,75 @@
 ﻿using System.Net;
 using HR.LeaveManagement.Api.Models;
 using HR.LeaveManagement.Application.Exceptions;
+using Newtonsoft.Json;
 
 namespace HR.LeaveManagement.Api.Middleware;
 
 public class ExceptionMiddleware
 {
     private readonly RequestDelegate _next;
+    private readonly ILogger<ExceptionMiddleware> _logger;
 
-    public ExceptionMiddleware(RequestDelegate next)
+    public ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger)
     {
         _next = next;
+        this._logger = logger;
     }
 
-    public async Task InvokeAsync(HttpContext context)
+    public async Task InvokeAsync(HttpContext httpContext)
     {
         try
         {
-            await _next(context);
+            await _next(httpContext);
         }
-        catch (Exception exception)
+        catch (Exception ex)
         {
-            await HandleExceptionAsync(context, exception);
+            await HandleExceptionAsync(httpContext, ex);
         }
     }
 
-    private async Task HandleExceptionAsync(HttpContext context, Exception exception)
+    private async Task HandleExceptionAsync(HttpContext httpContext, Exception ex)
     {
         HttpStatusCode statusCode = HttpStatusCode.InternalServerError;
-        CustomProblemDetails customProblemDetails;
+        CustomProblemDetails problem = new();
 
-        switch (exception)
+        switch (ex)
         {
             case BadRequestException badRequestException:
                 statusCode = HttpStatusCode.BadRequest;
-                customProblemDetails = new CustomProblemDetails()
+                problem = new CustomProblemDetails
                 {
                     Title = badRequestException.Message,
-                    Status = (int) statusCode,
+                    Status = (int)statusCode,
                     Detail = badRequestException.InnerException?.Message,
                     Type = nameof(BadRequestException),
                     Errors = badRequestException.ValidationErrors
                 };
                 break;
-            case NotFoundException notFoundException:
+            case NotFoundException NotFound:
                 statusCode = HttpStatusCode.NotFound;
-                customProblemDetails = new CustomProblemDetails()
+                problem = new CustomProblemDetails
                 {
-                    Title = notFoundException.Message,
-                    Status = (int) statusCode,
+                    Title = NotFound.Message,
+                    Status = (int)statusCode,
                     Type = nameof(NotFoundException),
-                    Detail = notFoundException.InnerException?.Message
+                    Detail = NotFound.InnerException?.Message,
                 };
                 break;
             default:
-                customProblemDetails = new CustomProblemDetails()
+                problem = new CustomProblemDetails
                 {
-                    Title = exception.Message,
-                    Status = (int) statusCode,
+                    Title = ex.Message,
+                    Status = (int)statusCode,
                     Type = nameof(HttpStatusCode.InternalServerError),
-                    Detail = exception.StackTrace
+                    Detail = ex.StackTrace,
                 };
                 break;
         }
-        
-        context.Response.StatusCode = (int)statusCode;
-        await context.Response.WriteAsJsonAsync(customProblemDetails);
+
+        httpContext.Response.StatusCode = (int)statusCode;
+        var logMessage = JsonConvert.SerializeObject(problem);
+        _logger.LogError(logMessage);
+        await httpContext.Response.WriteAsJsonAsync(problem);
     }
 }
