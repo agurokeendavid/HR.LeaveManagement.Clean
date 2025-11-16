@@ -9,8 +9,8 @@ namespace HR.LeaveManagement.BlazorUI.Services
     public class AuthenticationService : BaseHttpService, IAuthenticationService
     {
         private readonly AuthenticationStateProvider _authenticationStateProvider;
-        public AuthenticationService(IClient client,
-            ILocalStorageService localStorageService,
+        public AuthenticationService(IClient client, 
+            ILocalStorageService localStorageService, 
             AuthenticationStateProvider authenticationStateProvider) : base(client, localStorageService)
         {
             _authenticationStateProvider = authenticationStateProvider;
@@ -20,55 +20,40 @@ namespace HR.LeaveManagement.BlazorUI.Services
         {
             try
             {
-                var authRequest = new AuthRequest()
+                AuthRequest authenticationRequest = new AuthRequest() { Email = email, Password = password };
+                var authenticationResponse = await _client.LoginAsync(authenticationRequest);
+                if (authenticationResponse.Token != string.Empty)
                 {
-                    Email = email,
-                    Password = password
-                };
+                    await _localStorageService.SetItemAsync("token", authenticationResponse.Token);
 
-                var authResponse = await _client.LoginAsync(authRequest);
-
-                if (string.IsNullOrWhiteSpace(authResponse.Token))
-                    return false;
-
-                await _localStorageService.SetItemAsync("token", authResponse.Token);
-                // set claims in Blazor and login state
-                await ((ApiAuthenticationStateProvider)_authenticationStateProvider).LoggedIn();
-                
-                return true;
-
+                    // Set claims in Blazor and login state
+                    await ((ApiAuthenticationStateProvider)_authenticationStateProvider).LoggedIn();
+                    return true;
+                }
+                return false;
             }
             catch (Exception)
             {
                 return false;
             }
+            
         }
-
-        public async Task<bool> RegisterAsync(string firstName, string lastName, string userName, string email, string password)
-        {
-            var regRequest = new RegistrationRequest()
-            {
-                FirstName = firstName,
-                LastName = lastName,
-                UserName = userName,
-                Email = email,
-                Password = password
-            };
-
-            var response = await _client.RegisterAsync(regRequest);
-
-            if (!string.IsNullOrWhiteSpace(response.UserId))
-            {
-                return true;
-            }
-
-            return false;
-        }
-
         public async Task LogoutAsync()
         {
             // remove claims in Blazor and invalidate login state
             await ((ApiAuthenticationStateProvider)_authenticationStateProvider).LoggedOut();
+        }
+
+        public async Task<bool> RegisterAsync(string firstName, string lastName, string userName, string email, string password)
+        {
+            RegistrationRequest registrationRequest = new RegistrationRequest() { FirstName = firstName, LastName = lastName, Email = email, UserName = userName, Password = password };
+            var response = await _client.RegisterAsync(registrationRequest);
+
+            if (!string.IsNullOrEmpty(response.UserId))
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

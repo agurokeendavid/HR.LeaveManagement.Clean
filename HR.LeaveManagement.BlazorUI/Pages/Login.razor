@@ -1,7 +1,12 @@
 ﻿@page "/login"
 
 <h3>Login</h3>
-
+@if (string.IsNullOrEmpty(Message) == false)
+{
+    <div class="alert alert-danger">
+        @Message
+    </div>
+}
 <div class="row">
     <div class="col-md-4">
         <EditForm Model="@Model" OnValidSubmit="HandleLogin">

@@ -6,14 +6,15 @@
     <button @onclick="CreateLeaveType" class="btn btn-success">Add Leave Type</button>
 </div>
 
-@if (!string.IsNullOrWhiteSpace(Message))
+@if (string.IsNullOrEmpty(Message) == false)
 {
     <div class="alert alert-danger">
         @Message
     </div>
 }
 
-@if (LeaveTypes is null)
+<div clas></div>
+@if (LeaveTypes == null)
 {
     <p>Loading Data...</p>
 }
@@ -23,7 +24,7 @@ else
         <thead>
         <tr>
             <th>
-                ID
+                Id
             </th>
             <th>
                 Name
@@ -31,28 +32,30 @@ else
             <th>
                 Default Days
             </th>
-            <th>
-                Actions
-            </th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
         @foreach (var leaveType in LeaveTypes)
         {
             <tr>
-                <td>@leaveType.Id</td>
-                <td>@leaveType.Name</td>
-                <td>@leaveType.DefaultDays</td>
+                <td>@leaveType.Id </td>
+                <td>@leaveType.Name </td>
+                <td>@leaveType.DefaultDays </td>
                 <td>
-                    <button @onclick="(() => AllocateLeaveType(leaveType.Id))" class="btn btn-dark">
-                        Allocate Leave
-                    </button>
-                    <button @onclick="@(() => EditLeaveType(leaveType.Id))" class="btn btn-warning">Edit</button>
+                    <AuthorizeView Roles="Administrator">
+                        <button @onclick=@(() => AllocateLeaveType(leaveType.Id))
+                                class="btn btn-dark">
+                            Allocate Leave
+                        </button>
+                        <button @onclick="@(() => EditLeaveType(leaveType.Id))" class="btn btn-warning">Edit</button>
+                        <button @onclick="@(() => DeleteLeaveType(leaveType.Id))" class="btn btn-danger">Delete</button>
+                    </AuthorizeView>
                     <button @onclick="@(() => DetailsLeaveType(leaveType.Id))" class="btn btn-info">Details</button>
-                    <button @onclick="@(() => DeleteLeaveType(leaveType.Id))" class="btn btn-danger">Delete</button>
                 </td>
             </tr>
         }
         </tbody>
     </table>
+
 }
