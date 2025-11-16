@@ -9,4 +9,20 @@ public class LeaveAllocationService : BaseHttpService, ILeaveAllocationService
     public LeaveAllocationService(IClient client, ILocalStorageService localStorageService) : base(client, localStorageService)
     {
     }
+
+    public async Task<Response<Guid>> CreateLeaveAllocationAsync(int leaveTypeId)
+    {
+        try
+        {
+            var response = new Response<Guid>();
+            CreateLeaveAllocationCommand createLeaveAllocation = new  CreateLeaveAllocationCommand() { LeaveTypeId =  leaveTypeId };
+            
+            await _client.LeaveAllocationsPOSTAsync(createLeaveAllocation);
+            return response;
+        }
+        catch (ApiException exception)
+        {
+            return ConvertApiExceptions<Guid>(exception);
+        }
+    }
 }
