@@ -50,7 +50,7 @@ public class CreateLeaveAllocationHandler : IRequestHandler<CreateLeaveAllocatio
                     EmployeeId = employee.Id,
                     LeaveTypeId = leaveType.Id,
                     NumberOfDays = leaveType.DefaultDays,
-                    Period = period,
+                    Period = period
                 });
             }
         }

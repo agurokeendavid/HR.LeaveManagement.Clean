@@ -6,5 +6,7 @@ namespace HR.LeaveManagement.Application.Contracts.Identity
     {
         Task<List<Employee>> GetEmployeesAsync();
         Task<Employee> GetEmployeeAsync(string userId);
+        public string UserId { get; }
+        public string UserEmail { get; }
     }
 }

@@ -17,5 +17,4 @@ public class LeaveRequest : BaseEntity
     public bool? Approved { get; set; }
     public bool Cancelled { get; set; }
     public string RequestingEmployeeId { get; set; } = string.Empty;
-
 }
