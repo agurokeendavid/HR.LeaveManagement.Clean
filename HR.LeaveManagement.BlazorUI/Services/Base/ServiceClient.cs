@@ -2176,6 +2176,24 @@ namespace HR.LeaveManagement.BlazorUI.Services.Base
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.6.1.0 (NJsonSchema v11.5.1.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class Employee
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("id")]
+        public string Id { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("email")]
+        public string Email { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("firstname")]
+        public string Firstname { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("lastname")]
+        public string Lastname { get; set; }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.6.1.0 (NJsonSchema v11.5.1.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class LeaveAllocationDto
     {
 
@@ -2236,8 +2254,14 @@ namespace HR.LeaveManagement.BlazorUI.Services.Base
     public partial class LeaveRequestListDto
     {
 
-        [System.Text.Json.Serialization.JsonPropertyName("requestEmployeeId")]
-        public string RequestEmployeeId { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("id")]
+        public int Id { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("employee")]
+        public Employee Employee { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("requestingEmployeeId")]
+        public string RequestingEmployeeId { get; set; }
 
         [System.Text.Json.Serialization.JsonPropertyName("leaveType")]
         public LeaveTypeDto LeaveType { get; set; }
@@ -2253,6 +2277,9 @@ namespace HR.LeaveManagement.BlazorUI.Services.Base
 
         [System.Text.Json.Serialization.JsonPropertyName("approved")]
         public bool? Approved { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("cancelled")]
+        public bool? Cancelled { get; set; }
 
     }
 

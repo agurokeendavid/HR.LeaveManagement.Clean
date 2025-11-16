@@ -19,7 +19,8 @@ namespace HR.LeaveManagement.Identity.Services
             _contextAccessor = contextAccessor;
         }
         
-        public string UserId { get => _contextAccessor.HttpContext?.User?.FindFirstValue("uid"); }
+        public string UserId => _contextAccessor.HttpContext?.User?.FindFirstValue("uid");
+
         public string UserEmail =>
             _contextAccessor.HttpContext?.User?.Claims?
                 .FirstOrDefault(c => 

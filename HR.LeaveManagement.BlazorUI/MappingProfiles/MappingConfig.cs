@@ -30,11 +30,11 @@ namespace HR.LeaveManagement.BlazorUI.MappingProfiles
             CreateMap<UpdateLeaveRequestCommand, LeaveRequestVM>().ReverseMap();
 
             CreateMap<LeaveAllocationDto, LeaveAllocationVM>().ReverseMap();
-            // CreateMap<LeaveAllocationDetailsDto, LeaveAllocationVM>().ReverseMap();
+            CreateMap<LeaveAllocationDetailsDto, LeaveAllocationVM>().ReverseMap();
             CreateMap<CreateLeaveAllocationCommand, LeaveAllocationVM>().ReverseMap();
             CreateMap<UpdateLeaveAllocationCommand, LeaveAllocationVM>().ReverseMap();
 
-            // CreateMap<EmployeeVM, Employee>().ReverseMap();
+            CreateMap<EmployeeVM, Employee>().ReverseMap();
         }
     }
 }
